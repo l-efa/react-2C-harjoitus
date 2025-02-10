@@ -6,6 +6,7 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     noteService.getAll().then((response) => {
@@ -26,12 +27,17 @@ function App() {
     const changedNote = { ...note, important: !note.important };
 
     noteService
-      .update(id, changedNote)
+      .update(10, changedNote)
       .then((response) => {
         setNotes(notes.map((note) => (note.id !== id ? note : response)));
       })
       .catch((error) => {
-        alert(`the note '${note.content}' was already deleted from server`);
+        setErrorMessage(
+          `the note '${note.content}' was already deleted from server`
+        );
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
         setNotes(notes.filter((n) => n.id !== id));
       });
   };
@@ -51,6 +57,10 @@ function App() {
 
   return (
     <div>
+      <h1>Notes</h1>
+      <div>
+        <Notification errorMessage={errorMessage} />
+      </div>
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? "important" : "all"}
@@ -75,12 +85,23 @@ function App() {
   );
 }
 
+const Notification = ({ errorMessage }) => {
+  if (errorMessage === null) {
+    return null;
+  }
+  return (
+    <div className="error">
+      <p>{errorMessage}</p>
+    </div>
+  );
+};
+
 const Note = ({ note, toggleImportance }) => {
   const label = note.important ? "make not important" : "make important";
 
   return (
     <>
-      <li>
+      <li className="note">
         {note.content}
         <button onClick={toggleImportance}>{label}</button>
       </li>
