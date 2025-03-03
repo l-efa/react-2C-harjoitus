@@ -27,8 +27,9 @@ function App() {
     const changedNote = { ...note, important: !note.important };
 
     noteService
-      .update(10, changedNote)
+      .update(id, changedNote)
       .then((response) => {
+        console.log(response);
         setNotes(notes.map((note) => (note.id !== id ? note : response)));
       })
       .catch((error) => {
@@ -118,7 +119,7 @@ const Form = ({ newNote, setNewNote, notes, setNotes }) => {
     };
 
     axios
-      .post("http://localhost:3001/notes", noteObject)
+      .post("http://localhost:3001/api/notes", noteObject)
       .then((response) => {
         console.log(response);
         setNotes(notes.concat(response.data));

@@ -18,7 +18,7 @@
     {
       "id": "b3ad",
       "content": "POST TEST",
-      "important": true
+      "important": false
     },
     {
       "id": "b1ce",
@@ -28,12 +28,12 @@
     {
       "id": "b459",
       "content": "POST TEST 3",
-      "important": false
+      "important": true
     },
     {
       "id": "7de1",
       "content": "Post test 4",
-      "important": false
+      "important": true
     },
     {
       "id": "0d6a",
@@ -48,6 +48,16 @@
     {
       "id": "8720",
       "content": "",
+      "important": false
+    },
+    {
+      "id": "30e7",
+      "content": "koira",
+      "important": false
+    },
+    {
+      "id": "c532",
+      "content": "koirsa",
       "important": false
     }
   ]
